@@ -6,11 +6,25 @@ Feel free to disregard and create your own code */
 function buildMetadata(sample) {
 
     // Read the json data
+    d3.json("samples.json").then((data) => {
+        var metadata = data.metadata;
+        console.log(metadata);
+        var filtereddata = metadata.filter(test1 => test1.id == sample);
+        console.log(filtereddata);
+        var id = filtereddata[0];
+        console.log(id);
+    // Use d3 to select the page with id of `#sample-metadata`
+        var page = d3.select("#sample-metadata");
+
+    // Use `.html("") to clear any existing metadata
+        page.html("");
 
         // Parse and filter the data to get the sample's metadata
-
+        Object.entries(id).forEach(([key, value]) => {
+            page.append("h3").text(`${key.toUpperCase()}: ${value}`);
+          });
         // Specify the location of the metadata and update it
-
+    });
 }
 
 // Define a function that will create charts for given sample
@@ -31,17 +45,24 @@ function buildCharts(sample) {
 function init() {
 
     // Read json data
-
-        // Parse and filter data to get sample names
-
-        // Add dropdown option for each sample
-
+    var selector = d3.select("#selDataset");
+    d3.json("samples.json").then((datadropdown) => {
+        var sampleNames = datadropdown.names;
+        
+        sampleNames.forEach((sampleid) => {
+            selector.append("option").text(sampleid).property("value", sampleid);
+          });
+      
+          // Use the first sample from the list to build the initial plots
+          var defaultsample = sampleNames[0];
+          buildMetadata(defaultsample);
+    });
     // Use first sample to build metadata and initial plots
-
+    
 }
 
-function optionChanged(newSample){
-
+function optionChanged(sample){
+    buildMetadata(sample);
     // Update metadata with newly selected sample
 
     // Update charts with newly selected sample
