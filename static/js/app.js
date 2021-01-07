@@ -50,7 +50,7 @@ function buildCharts(sample) {
         // Create bar chart in correct location
         var trace1 = {
             x: sample_values,
-            y: labels,
+            y: labels.slice(0, 10).reverse(),
             type: "bar",
             orientation: 'h'
           };
@@ -62,7 +62,13 @@ function buildCharts(sample) {
           var layout = {
             title: "bacteria",
             xaxis: { title: "sample_values" },
-            yaxis: { title: "otu_ids" }
+            yaxis: { title: "otu_ids" },
+            margin: {
+                l: 500,
+                
+                t: 100,
+                b: 100
+              }
           };
           
           // Plot the chart to a div tag with id "bar-plot"
