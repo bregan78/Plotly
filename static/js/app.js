@@ -48,7 +48,25 @@ function buildCharts(sample) {
         console.log(sample_values);
 
         // Create bar chart in correct location
-
+        var trace1 = {
+            x: sample_values,
+            y: labels,
+            type: "bar",
+            orientation: 'h'
+          };
+          
+          // Create the data array for the plot
+          var data = [trace1];
+          
+          // Define the plot layout
+          var layout = {
+            title: "bacteria",
+            xaxis: { title: "sample_values" },
+            yaxis: { title: "otu_ids" }
+          };
+          
+          // Plot the chart to a div tag with id "bar-plot"
+          Plotly.newPlot("bar", data, layout);
         // Create bubble chart in correct location
     });
 }
