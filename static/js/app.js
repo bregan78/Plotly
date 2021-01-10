@@ -13,17 +13,13 @@ function buildMetadata(sample) {
         //console.log(filtereddata);
         var id = filtereddata[0];
         //console.log(id);
-    // Use d3 to select the page with id of `#sample-metadata`
         var page = d3.select("#sample-metadata");
-
-    // Use `.html("") to clear any existing metadata
         page.html("");
 
         // Parse and filter the data to get the sample's metadata
         Object.entries(id).forEach(([key, value]) => {
             page.append("h3").text(`${key.toUpperCase()}: ${value}`);
           });
-        // Specify the location of the metadata and update it
     });
 }
 
@@ -32,13 +28,11 @@ function buildCharts(sample) {
 
     d3.json("samples.json").then((data) => {
         var samples = data.samples;
-
-        // Parse and filter the data to get the sample's OTU data
         var filtereddata = samples.filter(test1 => test1.id == sample);
         //console.log(filtereddata);
         var id = filtereddata[0];
         //console.log(id);
-        // Pay attention to what data is required for each chart
+
         var ids= id.otu_ids;
         console.log(ids);
         var labels=id.otu_labels;
@@ -65,7 +59,6 @@ function buildCharts(sample) {
             yaxis: { title: "otu_ids" },
             margin: {
                 l: 500,
-                
                 t: 100,
                 b: 100
               }
@@ -73,7 +66,28 @@ function buildCharts(sample) {
           
           // Plot the chart to a div tag with id "bar-plot"
           Plotly.newPlot("bar", data, layout);
-        // Create bubble chart in correct location
+
+          //bubblechart 
+          var trace1 = {
+            x: ids,
+            y: sample_values,
+            mode: 'markers',
+            marker: {
+              size: sample_values
+            }
+          };
+          
+          var data = [trace1];
+          
+          var layout = {
+            title: "bacteria",
+            showlegend: false,
+            height: 600,
+            width: 600
+          };
+          
+          Plotly.newPlot('bubble', data, layout);
+        
     });
 }
 
