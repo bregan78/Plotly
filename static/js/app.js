@@ -68,12 +68,15 @@ function buildCharts(sample) {
           Plotly.newPlot("bar", data, layout);
 
           //bubblechart 
+          
+          var size = sample_values;
           var trace1 = {
             x: ids,
             y: sample_values,
             mode: 'markers',
             marker: {
-              size: sample_values
+              size: size,
+              color: ids
             }
           };
           
@@ -115,9 +118,6 @@ function init() {
 function optionChanged(sample){
     buildMetadata(sample);
     buildCharts(sample);
-    // Update metadata with newly selected sample
-
-    // Update charts with newly selected sample
 
 }
 
