@@ -58,7 +58,7 @@ function buildCharts(sample) {
             xaxis: { title: "sample_values" },
             yaxis: { title: "otu_ids" },
             margin: {
-                l: 500,
+                l: 25,
                 t: 100,
                 b: 100
               }
@@ -83,7 +83,7 @@ function buildCharts(sample) {
             title: "bacteria",
             showlegend: false,
             height: 600,
-            width: 600
+            width: 1000
           };
           
           Plotly.newPlot('bubble', data, layout);
