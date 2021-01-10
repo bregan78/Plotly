@@ -43,8 +43,8 @@ function buildCharts(sample) {
 
         // Create bar chart in correct location
         var trace1 = {
-            x: sample_values,
-            y: labels.slice(0, 10).reverse(),
+            x: sample_values.slice(0, 10).reverse(),
+            y: labels,
             type: "bar",
             orientation: 'h'
           };
@@ -57,22 +57,19 @@ function buildCharts(sample) {
             title: "bacteria",
             xaxis: { title: "sample_values" },
             yaxis: { title: "otu_ids" },
-            margin: {
-                l: 25,
-                t: 100,
-                b: 100
+            margin: {l: 25,t: 100, b: 100
               }
           };
           
-          // Plot the chart to a div tag with id "bar-plot"
+          // Plot the barchart
           Plotly.newPlot("bar", data, layout);
 
           //bubblechart 
-          
           var size = sample_values;
           var trace1 = {
             x: ids,
             y: sample_values,
+            text: labels,
             mode: 'markers',
             marker: {
               size: size,
@@ -88,7 +85,7 @@ function buildCharts(sample) {
             height: 600,
             width: 1000
           };
-          
+           // Plot the bubble chart
           Plotly.newPlot('bubble', data, layout);
         
     });
@@ -111,7 +108,7 @@ function init() {
           buildMetadata(defaultsample);
           buildCharts(defaultsample);
     });
-    // Use first sample to build metadata and initial plots
+    
     
 }
 
